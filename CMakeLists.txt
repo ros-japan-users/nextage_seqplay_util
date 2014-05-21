@@ -8,6 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
   nextage_description
   nextage_ros_bridge
   rospy
+  tf
 )
 
 ## System dependencies are found with CMake's conventions
@@ -82,7 +83,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES nextage_ros_seqplay_util
-#  CATKIN_DEPENDS nextage_description nextage_ros_bridge rospy
+#  CATKIN_DEPENDS nextage_description nextage_ros_bridge rospy tf
 #  DEPENDS system_lib
 )
 
