@@ -16,6 +16,8 @@ from tf.transformations import euler_from_matrix
 from hrpsys_ros_bridge.srv import *
 from nextage_ros_bridge import nextage_client
 
+from nextage_ros_seqplay_util.srv import *
+
 
 class NextageSeqPlayUtil(object):
     def __init__(self):
@@ -84,12 +86,22 @@ if __name__ == '__main__':
     util = NextageSeqPlayUtil()
 
     def set_target_pose_relative(request):
-        return OpenHRP_SequencePlayerService_setTargetPoseResponse(
-            util.set_target_pose_relative(request.name, request.xyz, request.rpy, request.tm))
+        return setTargetPoseRelativeResponse(
+            util.set_target_pose_relative(
+                request.name, request.xyz, request.rpy, request.tm))
 
-    # regsiter service /nextage_ros_seqplay_util/setTargetPoseRelative
+    def go_initial(request):
+        return goPoseResponse(util.go_initial(request.tm))
+
+    def go_off_pose(request):
+        return goPoseResponse(util.go_off_pose(request.tm))
+
     rospy.init_node('nextage_ros_seqplay_util')
+    # regsiter ros services
     print rospy.Service('nextage_ros_seqplay_util/setTargetPoseRelative',
-                        OpenHRP_SequencePlayerService_setTargetPose,
-                        set_target_pose_relative)
+                        setTargetPoseRelative, set_target_pose_relative)
+    print rospy.Service('nextage_ros_seqplay_util/goInitial',
+                        goPose, go_initial)
+    print rospy.Service('nextage_ros_seqplay_util/goOffPose',
+                        goPose, go_off_pose)
     rospy.spin()
