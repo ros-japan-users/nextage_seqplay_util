@@ -16,7 +16,7 @@
   <run_depend>nextage_description</run_depend>
   <run_depend>nextage_ros_bridge</run_depend>
   <run_depend>rospy</run_depend>
-  <build_depend>tf</build_depend>
+  <run_depend>tf</run_depend>
 
   <export>
   </export>

@@ -1,0 +1,6 @@
+string name
+float64[] xyz
+float64[] rpy
+float64 tm
+---
+bool operation_return
