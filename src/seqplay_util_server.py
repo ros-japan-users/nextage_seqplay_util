@@ -39,15 +39,6 @@ class NextageSeqPlayUtil(object):
         self.set_joint_angles_of_group = rospy.ServiceProxy(
             '/SequencePlayerServiceROSBridge/setJointAnglesOfGroup',
             OpenHRP_SequencePlayerService_setJointAnglesOfGroup)
-        self.wait_interpolation = rospy.ServiceProxy(
-            '/SequencePlayerServiceROSBridge/waitInterpolation',
-            OpenHRP_SequencePlayerService_waitInterpolation)
-        self.wait_interpolation_of_group = rospy.ServiceProxy(
-            '/SequencePlayerServiceROSBridge/waitInterpolationOfGroup',
-            OpenHRP_SequencePlayerService_waitInterpolationOfGroup)
-        self.set_joint_angles_of_group = rospy.ServiceProxy(
-            '/SequencePlayerServiceROSBridge/setJointAnglesOfGroup',
-            OpenHRP_SequencePlayerService_setJointAnglesOfGroup)
 
         rospy.wait_for_service('/ForwardKinematicsServiceROSBridge/getCurrentPose')
         self.get_current_pose = rospy.ServiceProxy(
