@@ -39,22 +39,13 @@ class NextageSeqPlayUtil(object):
         self.set_joint_angles_of_group = rospy.ServiceProxy(
             '/SequencePlayerServiceROSBridge/setJointAnglesOfGroup',
             OpenHRP_SequencePlayerService_setJointAnglesOfGroup)
-        self.wait_interpolation = rospy.ServiceProxy(
-            '/SequencePlayerServiceROSBridge/waitInterpolation',
-            OpenHRP_SequencePlayerService_waitInterpolation)
-        self.wait_interpolation_of_group = rospy.ServiceProxy(
-            '/SequencePlayerServiceROSBridge/waitInterpolationOfGroup',
-            OpenHRP_SequencePlayerService_waitInterpolationOfGroup)
-        self.set_joint_angles_of_group = rospy.ServiceProxy(
-            '/SequencePlayerServiceROSBridge/setJointAnglesOfGroup',
-            OpenHRP_SequencePlayerService_setJointAnglesOfGroup)
 
         rospy.wait_for_service('/ForwardKinematicsServiceROSBridge/getCurrentPose')
         self.get_current_pose = rospy.ServiceProxy(
             '/ForwardKinematicsServiceROSBridge/getCurrentPose',
             OpenHRP_ForwardKinematicsService_getCurrentPose)
 
-    def set_target_pose_relative(self, name, delta_pos, delta_rpy, tm):
+    def set_target_pose_relative(self, name, delta_xyz, delta_rpy, tm):
         if name.lower() == 'rarm':
             joint = 'RARM_JOINT5'
         elif name.lower() == 'larm':
@@ -63,11 +54,11 @@ class NextageSeqPlayUtil(object):
             raise rospy.ServiceException()
 
         matrix = self.get_current_pose(joint).pose.data
-        pos = numpy.array([matrix[3], matrix[7], matrix[11]])
+        xyz = numpy.array([matrix[3], matrix[7], matrix[11]])
         rpy = numpy.array(euler_from_matrix([matrix[0:3], matrix[4:7], matrix[8:11]], 'sxyz'))
-        pos += [delta_pos[0], delta_pos[1], delta_pos[2]]
+        xyz += [delta_xyz[0], delta_xyz[1], delta_xyz[2]]
         rpy += [delta_rpy[0], delta_rpy[1], delta_rpy[2]]
-        return self.set_target_pose(name, list(pos), list(rpy), tm)
+        return self.set_target_pose(name, list(xyz), list(rpy), tm)
 
     def go_pose(self, pose, tm):
         self.set_joint_angles_of_group('torso', pose[0], tm)
