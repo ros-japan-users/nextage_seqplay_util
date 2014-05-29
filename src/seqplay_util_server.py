@@ -77,7 +77,7 @@ if __name__ == '__main__':
     util = NextageSeqPlayUtil()
 
     def set_target_pose_relative(request):
-        return setTargetPoseRelativeResponse(
+        return OpenHRP_SequencePlayerService_setTargetPoseResponse(
             util.set_target_pose_relative(
                 request.name, request.xyz, request.rpy, request.tm))
 
@@ -90,7 +90,8 @@ if __name__ == '__main__':
     rospy.init_node('nextage_ros_seqplay_util')
     # regsiter ros services
     print rospy.Service('nextage_ros_seqplay_util/setTargetPoseRelative',
-                        setTargetPoseRelative, set_target_pose_relative)
+                        OpenHRP_SequencePlayerService_setTargetPose,
+                        set_target_pose_relative)
     print rospy.Service('nextage_ros_seqplay_util/goInitial',
                         goPose, go_initial)
     print rospy.Service('nextage_ros_seqplay_util/goOffPose',
