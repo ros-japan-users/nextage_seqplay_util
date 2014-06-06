@@ -4,13 +4,8 @@
 import math
 import numpy
 
-try:
-    import roslib
-    import nextage_ros_bridge
-except:
-    import roslib
-    roslib.load_manifest('nextage_ros_bridge')
-    import nextage_ros_bridge
+import roslib
+roslib.load_manifest('nextage_ros_seqplay_util')
 import rospy
 from tf.transformations import euler_from_matrix
 from hrpsys_ros_bridge.srv import *
