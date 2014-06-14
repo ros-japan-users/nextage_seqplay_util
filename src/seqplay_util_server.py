@@ -74,13 +74,13 @@ if __name__ == '__main__':
     def set_target_pose_relative(request):
         return OpenHRP_SequencePlayerService_setTargetPoseResponse(
             util.set_target_pose_relative(
-                request.name, request.xyz, request.rpy, request.tm))
+                request.name, request.xyz, request.rpy, request.tm).operation_return)
 
     def go_initial(request):
-        return goPoseResponse(util.go_initial(request.tm))
+        return goPoseResponse(util.go_initial(request.tm).operation_return)
 
     def go_off_pose(request):
-        return goPoseResponse(util.go_off_pose(request.tm))
+        return goPoseResponse(util.go_off_pose(request.tm).operation_return)
 
     rospy.init_node('nextage_ros_seqplay_util')
     # regsiter ros services
