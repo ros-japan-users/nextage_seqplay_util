@@ -26,8 +26,9 @@ class NextageSeqPlayUtil(object):
         for angles in self.off_pose:
             for i, a in enumerate(angles):
                 angles[i] = math.radians(a)
-
+        rospy.loginfo('start setup services')
         rospy.wait_for_service('/SequencePlayerServiceROSBridge/setTargetPose')
+        rospy.loginfo('/SequencePlayerServiceROSBridge/setTargetPose is ready')
         self.set_target_pose = rospy.ServiceProxy(
             '/SequencePlayerServiceROSBridge/setTargetPose',
             OpenHRP_SequencePlayerService_setTargetPose)
@@ -36,6 +37,7 @@ class NextageSeqPlayUtil(object):
             OpenHRP_SequencePlayerService_setJointAnglesOfGroup)
 
         rospy.wait_for_service('/ForwardKinematicsServiceROSBridge/getCurrentPose')
+        rospy.loginfo('/SequencePlayerServiceROSBridge/getCurrentPose is ready')
         self.get_current_pose = rospy.ServiceProxy(
             '/ForwardKinematicsServiceROSBridge/getCurrentPose',
             OpenHRP_ForwardKinematicsService_getCurrentPose)
@@ -69,6 +71,8 @@ class NextageSeqPlayUtil(object):
 
 
 if __name__ == '__main__':
+    rospy.init_node('nextage_ros_seqplay_util')
+
     util = NextageSeqPlayUtil()
 
     def set_target_pose_relative(request):
@@ -82,13 +86,13 @@ if __name__ == '__main__':
     def go_off_pose(request):
         return goPoseResponse(util.go_off_pose(request.tm).operation_return)
 
-    rospy.init_node('nextage_ros_seqplay_util')
     # regsiter ros services
-    print rospy.Service('nextage_ros_seqplay_util/setTargetPoseRelative',
+    set_target_pose_relative_service = rospy.Service('nextage_ros_seqplay_util/setTargetPoseRelative',
                         OpenHRP_SequencePlayerService_setTargetPose,
                         set_target_pose_relative)
-    print rospy.Service('nextage_ros_seqplay_util/goInitial',
+    go_initial_service = rospy.Service('nextage_ros_seqplay_util/goInitial',
                         goPose, go_initial)
-    print rospy.Service('nextage_ros_seqplay_util/goOffPose',
+    go_off_pose = rospy.Service('nextage_ros_seqplay_util/goOffPose',
                         goPose, go_off_pose)
+    rospy.loginfo('nextage_ros_seqplay_util is ready')
     rospy.spin()
