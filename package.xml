@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>nextage_ros_seqplay_util</name>
+  <name>nextage_seqplay_util</name>
   <version>0.1.0</version>
   <description>SequencePlayer utility for NEXTAGE OPEN</description>
 
