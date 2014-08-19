@@ -34,15 +34,15 @@ $ rosrun nextage_seqplay_util seqplay_util_server.py
 
 **terminal #4**
 ~~~sh
-$ rosservice list /nextage_ros_seqplay_util
-/nextage_ros_seqplay_util/get_loggers
-/nextage_ros_seqplay_util/goInitial
-/nextage_ros_seqplay_util/goOffPose
-/nextage_ros_seqplay_util/setTargetPoseRelative
-/nextage_ros_seqplay_util/set_logger_level
-$ rosservice call /nextage_ros_seqplay_util/goInitial 2.0
+$ rosservice list /nextage_seqplay_util
+/nextage_seqplay_util/get_loggers
+/nextage_seqplay_util/goInitial
+/nextage_seqplay_util/goOffPose
+/nextage_seqplay_util/setTargetPoseRelative
+/nextage_seqplay_util/set_logger_level
+$ rosservice call /nextage_seqplay_util/goInitial 2.0
 $ rosservice call /SequencePlayerServiceROSBridge/waitInterpolation
-$ rosservice call /nextage_ros_seqplay_util/setTargetPoseRelative "larm" "[0, 0, 0.1]" "[0, 0, 0]" 2.0
+$ rosservice call /nextage_seqplay_util/setTargetPoseRelative "larm" "[0, 0, 0.1]" "[0, 0, 0]" 2.0
 $ rosservice call /SequencePlayerServiceROSBridge/waitInterpolationOfGroup "larm"
-$ rosservice call /nextage_ros_seqplay_util/goOffPose 2.0
+$ rosservice call /nextage_seqplay_util/goOffPose 2.0
 ~~~
