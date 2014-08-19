@@ -11,6 +11,7 @@ $ cd /path/to/catkin_ws/src
 $ git clone git@github.com:ros-japan-users/nextage_seqplay_util.git
 $ cd ..
 $ catkin_make
+$ source devel/setup.bash
 ~~~
 
 
