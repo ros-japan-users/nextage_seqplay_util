@@ -16,7 +16,7 @@ from nextage_seqplay_util.srv import *
 
 class NextageSeqPlayUtil(object):
     def __init__(self):
-        self.init_pose = nextage_client.NextageClient.InitialPose
+        self.init_pose = nextage_client.NextageClient._InitialPose
         self.off_pose = nextage_client.NextageClient.OffPose
 
         # degrees to radians
